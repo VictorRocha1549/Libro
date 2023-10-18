@@ -25,7 +25,10 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        //Usuario
+        //Usuarios
+        //Se crea una instancia de usuario para llamar a sus metodos y darles valor a sus atributos
+        
+        
         Users user1 = new Users();
         user1.setName("Victor Rocha");
         user1.setEmail("victorerocha@gmail.com");
@@ -51,12 +54,16 @@ public class Main {
         user4.setRol(Rol.USER);
         
         //Categorias
+        //Se crea una instancia de categoria  para llamar a sus metodos y darles valor a sus atributos
         Categories categoria1 = new Categories();
         categoria1.setType("Tecnologia");
+        //se guardan en una lista cada una de las categorias creadas
         List<Categories> categoirias = new ArrayList<>();
         categoirias.add(categoria1);
 
         //Respuesta
+        //de igual forma se instancia respuestas y esta pide como parametros los atributos, la diferencia entre cada una es que set Parent es para 
+        //contestar al que ya respondió
         Answers answers1 = new Answers(user2, new Date(), "Wooow");
 
         Answers answers2 = new Answers(user3, new Date(), "Estoy de acuerdo con la informacion");
@@ -65,13 +72,14 @@ public class Main {
         Answers answers3 = new Answers(user4, new Date(), "no estoy de acuerdo");
         answers2.setParentAnswer(answers1);
         
-
+//se guardan todas las respuestas en una lista
         List<Answers> answers = new ArrayList<>();
         answers.add(answers1);
         answers.add(answers2);
         answers.add(answers3);
 
         //publicacion
+        // se instancia publicaciones y con sus metodos le damos valor a sus atributos
         Publications publication = new Publications();
         publication.setAuthor(user1);
         publication.setDate(new Date());
@@ -81,18 +89,25 @@ public class Main {
         publication.setImage("https://i.blogs.es/462af3/f4rs8bmxuaavoms/840_560.jpeg");
 
         //imprimir las publicaciones
+        //aquí se imprime la publicacion, los comentarios, etc
+
         System.out.println("Welcome to Social Media");
-        System.out.println(publication.getTitle());
-        System.out.println("Creado por " + publication.getAuthor().getName() + " el " + publication.getDate());
-        System.out.println(publication.getCategorie());
-        System.out.println(publication.getDescription());
-        System.out.println(publication.getImage());
-        System.out.println("Likes: " + publication.getLike() + " Dislikes: " + publication.getDislike());
+        System.out.println(publication.getTitle());//titulo
+        System.out.println("Creado por " + publication.getAuthor().getName() + " el " + publication.getDate());//autor y fecha de creacion
+        System.out.println(publication.getCategorie());//categoria
+        System.out.println(publication.getDescription());//cuerpo de la publicacion
+        System.out.println(publication.getImage());//imagen de referencia
+        System.out.println("Likes: " + publication.getLike() + " Dislikes: " + publication.getDislike());//reacciones
+        //la parte interesante
         System.out.println("Respuestas:");
+        //todo lo que contenga respuestas se nombra answers
+        //Esto verifica si la respuesta tiene una respuesta principal (un "padre o anterior o principal"). Si es así, significa que esta respuesta es una respuesta a otra respuesta.
         for (Answers answer : answers) {
             if (answer.getParentAnswer() != null) {
+                //Si la respuesta tiene un "padre" (una respuesta principal), se imprime un mensaje que indica quién respondió a quién. Esto se hace con la línea:
                 System.out.println("<< << "+answer.getAuthor().getName() + " respondió a " + answer.getParentAnswer().getAuthor().getName());
             } else {
+                //Si la respuesta no tiene un "padre", se muestra un mensaje que solo contiene el nombre del autor de la respuesta actual que seria una respuesta "padre"
                 System.out.println("<< "+answer.getAuthor().getName());
             }
             System.out.println(answer.getDate());
